@@ -45,3 +45,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'kaminari' # adds pagination to ActiveModels  
+gem 'responders', '~> 2.0'
