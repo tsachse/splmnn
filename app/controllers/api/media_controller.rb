@@ -5,7 +5,7 @@ module Api
 
     private
 
-    def media_params
+    def medium_params
       params.permit(:id,:name,:code,:path)
     end
 

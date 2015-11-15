@@ -9,7 +9,7 @@ module Api
       set_resource(resource_class.new(resource_params))
 
       if get_resource.save
-	render :show, status: :created
+	render json: get_resource, status: :created
       else
 	render json: get_resource.errors, status: :unprocessable_entity
       end
@@ -25,8 +25,9 @@ module Api
     def index  
       plural_resource_name = "@#{resource_name.pluralize}"
       resources = resource_class.where(query_params)
-				.page(page_params[:page])
-				.per(page_params[:page_size])
+      				.order("#{page_params[:_sortField]} #{page_params[:_sortDir]}")
+				.page(page_params[:_page])
+				.per(page_params[:_perPage])
 
       instance_variable_set(plural_resource_name, resources)
       render json: instance_variable_get(plural_resource_name)
@@ -42,7 +43,7 @@ module Api
     # PATCH/PUT /api/{plural_resource_name}/1
     def update  
       if get_resource.update(resource_params)
-	render :show
+	render json: get_resource 
       else
 	render json: get_resource.errors, status: :unprocessable_entity
       end
@@ -64,10 +65,11 @@ module Api
       {}
     end
 
-    # Returns the allowed parameters for pagination
+    # Returns the allowed parameters for pagination and sort
     # @return [Hash]
     def page_params
-      params.permit(:page, :page_size)
+      #params.permit(:page, :page_size)
+      params.permit(:_page, :_perPage,:_sortDir,:_sortField)
     end
 
     # The resource class based on the controller
