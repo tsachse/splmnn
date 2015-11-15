@@ -24,7 +24,8 @@ module Api
     # GET /api/{plural_resource_name}
     def index  
       plural_resource_name = "@#{resource_name.pluralize}"
-      resources = resource_class.where(query_params)
+      ### Das geht nocht nicht so...
+      resources = resource_class.where(page_params[:_filters])
       				.order("#{page_params[:_sortField]} #{page_params[:_sortDir]}")
 				.page(page_params[:_page])
 				.per(page_params[:_perPage])
@@ -69,7 +70,7 @@ module Api
     # @return [Hash]
     def page_params
       #params.permit(:page, :page_size)
-      params.permit(:_page, :_perPage,:_sortDir,:_sortField)
+      params.permit(:_page, :_perPage,:_sortDir,:_sortField,:_filters)
     end
 
     # The resource class based on the controller

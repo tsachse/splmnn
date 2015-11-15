@@ -16,7 +16,15 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     media.showView().fields([
       nga.field('code'),
       nga.field('name'),
-      nga.field('path')
+      nga.field('path'),
+      nga.field('sections', 'referenced_list')
+        .targetEntity(nga.entity('sections'))
+	.targetReferenceField('medium_id')
+	.targetFields([
+	  nga.field('name'),
+	  nga.field('start'),
+	  nga.field('stop')
+	])
     ]);
 
 
