@@ -25,6 +25,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	  nga.field('start'),
 	  nga.field('stop')
 	])
+ 	//.listActions(['show','edit'])
     ]);
 
 

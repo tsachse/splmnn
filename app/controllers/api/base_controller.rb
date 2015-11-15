@@ -25,7 +25,7 @@ module Api
     def index  
       plural_resource_name = "@#{resource_name.pluralize}"
       ### Das geht nocht nicht so...
-      resources = resource_class.where(page_params[:_filters])
+      resources = resource_class.where(query_params)
       				.order("#{page_params[:_sortField]} #{page_params[:_sortDir]}")
 				.page(page_params[:_page])
 				.per(page_params[:_perPage])
@@ -63,7 +63,7 @@ module Api
     # to permit additional parameters to search on
     # @return [Hash]
     def query_params
-      {}
+      JSON.parse(page_params[:_filters] || '{}')
     end
 
     # Returns the allowed parameters for pagination and sort
