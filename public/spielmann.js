@@ -8,6 +8,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     var media = nga.entity('media');
     var sections = nga.entity('sections');
 
+
     media.listView().fields([
       nga.field('code'),
       nga.field('name'),
