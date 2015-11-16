@@ -23,13 +23,20 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
       nga.field('code'),
       nga.field('name'),
       nga.field('path'),
+      nga.field('v', 'template')
+        .label('')
+	.template('<video id="qt_repeat" height=400 controls src="{{ entry.values.path}}" />'),
       nga.field('sections', 'referenced_list')
         .targetEntity(sections)
 	.targetReferenceField('medium_id')
 	.targetFields([
 	  nga.field('name'),
 	  nga.field('start'),
-	  nga.field('stop')
+	  nga.field('stop'),
+	  nga.field('b', 'template')
+	    .label('')
+	    .template('<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat"></span>&nbsp;</button>')
+
 	])
 	.sortField('id')
 	.sortDir('ASC')
