@@ -6,28 +6,35 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     var spielmann = nga.application('Spielmann').baseApiUrl('/api/'); // main API endpoint
 
     var media = nga.entity('media');
+    var sections = nga.entity('sections');
+
     media.listView().fields([
       nga.field('code'),
       nga.field('name'),
       //nga.field('path'),
      ])
-     .listActions(['show','edit']); 
+     .sortField('id')
+     .sortDir('ASC')
+     .listActions(['show','edit']) 
+     .actions(['create', 'delete'])  ;
 
     media.showView().fields([
       nga.field('code'),
       nga.field('name'),
       nga.field('path'),
       nga.field('sections', 'referenced_list')
-        .targetEntity(nga.entity('sections'))
+        .targetEntity(sections)
 	.targetReferenceField('medium_id')
 	.targetFields([
 	  nga.field('name'),
 	  nga.field('start'),
 	  nga.field('stop')
 	])
- 	//.listActions(['show','edit'])
-    ]);
-
+	.sortField('id')
+	.sortDir('ASC')
+ 	.listActions(['show','edit'])
+    ])
+    .title('Show item "{{entry.values.name}}"');
 
     media.creationView().fields([
       nga.field('code'),
@@ -35,10 +42,63 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
       nga.field('path')
     ]);
 
-    // use the same fields for the editionView as for the creationView
-    media.editionView().fields(media.creationView().fields());
+    media.editionView().fields([
+      nga.field('code'),
+      nga.field('name'),
+      nga.field('path'),
+      nga.field('sections', 'referenced_list')
+        .targetEntity(sections)
+	.targetReferenceField('medium_id')
+	.targetFields([
+	  nga.field('name'),
+	  nga.field('start'),
+	  nga.field('stop')
+	])
+	.sortField('id')
+	.sortDir('ASC')
+ 	.listActions(['show','edit'])
+    ])
+    .title('Edit item "{{entry.values.name}}"');
+
+    sections.listView().fields([
+	nga.field('name'),
+	nga.field('start'),
+	nga.field('stop'),
+    ]);
+
+    sections.showView().fields([
+	nga.field('name'),
+	nga.field('start'),
+	nga.field('stop'),
+    ])
+    .actions(['edit','delete','back'])
+    .title('Show item "{{entry.values.name}}"');
+
+    sections.editionView().fields([
+	nga.field('name'),
+	nga.field('start'),
+	nga.field('stop'),
+    ])
+    .actions(['delete','back'])
+    .title('Edit item "{{entry.values.name}}"');
 
     spielmann.addEntity(media);
+    spielmann.addEntity(sections);
+
+    spielmann.menu(nga.menu()
+	.addChild(nga.menu(media).icon('<span class="glyphicon glyphicon-film"></span>'))
+    );
+
+    spielmann.dashboard(nga.dashboard()
+	.addCollection(nga.collection(media)
+	   .fields([
+	      nga.field('code'),
+	      nga.field('name'),
+	     ])
+	   .sortField('id')
+	   .sortDir('ASC')
+	   .listActions(['show','edit']) 
+	));
 
     nga.configure(spielmann);
 }]);
