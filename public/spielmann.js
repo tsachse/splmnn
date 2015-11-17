@@ -1,5 +1,14 @@
 // declare a new module called 'myApp', and make it require the `ng-admin` module as a dependency
 var myApp = angular.module('myApp', ['ng-admin']);
+
+myApp.factory('VideoFunctions', function() {
+  return {  
+    startTime: 0, 
+    endTime : -1,
+    get_end_time: function() { return -2; }
+  };
+});
+
 // declare a function to run when the module bootstraps (during the 'config' phase)
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     // create an admin application
@@ -7,7 +16,6 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
     var media = nga.entity('media');
     var sections = nga.entity('sections');
-
 
     media.listView().fields([
       nga.field('code'),
@@ -35,7 +43,8 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	  nga.field('stop'),
 	  nga.field('b', 'template')
 	    .label('')
-	    .template('<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat"></span>&nbsp;</button>')
+	    .template('<button type="button" ng-click="ab_repeat(entry.values.start, entry.values.stop)" ng-controller="VideoCtrl"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat"></span>&nbsp;</button>')
+
 
 	])
 	.sortField('id')
@@ -109,4 +118,25 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	));
 
     nga.configure(spielmann);
+
 }]);
+
+myApp.controller('VideoCtrl', function ($scope) {
+  $scope.vid = document.getElementById("qt_repeat");
+  $scope.start = 0;
+  $scope.stop = -1;
+
+  $scope.ab_repeat = function(start, stop) {
+    $scope.vid.play();
+    //$scope.start  = start;
+    //$scope.stop = stop;
+    //$scope.vid.currentTime = $scope.start;
+    $scope.vid.addEventListener('timeupdate',function() {
+      var v = document.getElementById("qt_repeat");
+      console.log('......', v.currentTime );
+      //if($scope.stop > -1 && $scope.vid.currentTime > $scope.stop) {
+//$scope.vid.currentTime = $scope.start;
+//      }
+    });
+  };
+});
