@@ -72,7 +72,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	  nga.field('stop'),
 	  nga.field('b', 'template')
 	    .label('')
-	    .template('<button type="button" ng-click="ab_repeat(entry.values.start, entry.values.stop)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat"></span>&nbsp;</button>')
+	    .template('<button type="button" ng-click="ab_repeat(entry.values.start, entry.values.stop)" ng-controller="VideoCtrl" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat"></span>&nbsp;</button>')
 
 
 	])
@@ -155,7 +155,6 @@ myApp.controller('VideoCtrl', function ($scope) {
   //$scope.start = 0;
   //$scope.stop = -1;
 
-  /*
   $scope.ab_repeat = function(start, stop) {
     $scope.start  = start;
     $scope.stop = stop;
@@ -170,5 +169,4 @@ myApp.controller('VideoCtrl', function ($scope) {
       }
     });
   };
-  */
 });
