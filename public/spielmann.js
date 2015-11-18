@@ -9,6 +9,12 @@ myApp.factory('VideoFunctions', function() {
   };
 });
 
+myApp.filter('trusted', ['$sce', function ($sce) {
+  return function(url) {
+    return $sce.trustAsResourceUrl(url);
+  };
+}]);
+
 // declare a function to run when the module bootstraps (during the 'config' phase)
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     // create an admin application
@@ -42,7 +48,6 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	 '	</div>' +
 	 '   </div>' +
 	 '  </div>' +
-	 ' <div><video id="qt_repeat" ng-src="/media/BL-207.m4v" controls></video></div>' +
 	 ' <div class="row form-horizontal" id="show-view" > ' +
 	  '    <div class="col-lg-12 form-group" ng-repeat="field in ::showController.fields track by $index">' +
 	'	  <label class="col-sm-2 control-label">{{ field.label() }}</label>' +
@@ -55,9 +60,9 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
       nga.field('code'),
       nga.field('name'),
       nga.field('path'),
-      //nga.field('v', 'template')
-      //  .label('')
-	//.template('<video id="qt_repeat" height=400 controls src="{{ entry.values.path}}" />'),
+      nga.field('v', 'template')
+        .label('')
+	.template('<video id="qt_repeat" height=400 controls ng-src="{{ entry.values.path | trusted}}" />'),
       nga.field('sections', 'referenced_list')
         .targetEntity(sections)
 	.targetReferenceField('medium_id')
