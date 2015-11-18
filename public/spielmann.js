@@ -42,7 +42,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 	 '	</div>' +
 	 '   </div>' +
 	 '  </div>' +
-	 ' <div><video id="qt_repeat" height=400 controls src="/media/BL-207.m4v" /></div>' +
+	 ' <div><video id="qt_repeat" ng-src="/media/BL-207.m4v" controls></video></div>' +
 	 ' <div class="row form-horizontal" id="show-view" > ' +
 	  '    <div class="col-lg-12 form-group" ng-repeat="field in ::showController.fields track by $index">' +
 	'	  <label class="col-sm-2 control-label">{{ field.label() }}</label>' +
