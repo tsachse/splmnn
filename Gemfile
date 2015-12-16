@@ -49,3 +49,4 @@ gem 'kaminari' # adds pagination to ActiveModels
 gem 'responders', '~> 2.0'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'puma'

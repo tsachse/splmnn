@@ -27,7 +27,7 @@ ActiveAdmin.register Medium do
 
   show do
     panel "#{medium.name}" do
-      video id: "qt_repeat", src: medium.path, height: 400, controls: true, autobuffer: true, preload: 'auto' do
+      video id: "qt_repeat", src: medium.path, height: 400, controls: true  do
       end
     end
     columns do
