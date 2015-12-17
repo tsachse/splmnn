@@ -32,14 +32,6 @@ ActiveAdmin.register Medium do
     end
     columns do
       column do
-	panel "Medium" do
-	  attributes_table do
-	    row :code
-	    row :name
-	  end
-	end
-      end
-      column do
 	panel "Section" do
 	  unless medium.sections.empty?
 	    table_for medium.sections do
@@ -49,6 +41,16 @@ ActiveAdmin.register Medium do
 	      column :start
 	      column :stop
 	    end
+	  end
+	end
+
+      end
+
+      column do
+	panel "Medium" do
+	  attributes_table do
+	    row :code
+	    row :name
 	  end
 	end
       end
