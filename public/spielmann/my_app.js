@@ -73,7 +73,7 @@ define(function(require) {
 
    });
 
-   myApp.controller('VideoNavigationCtrl', function ($scope, VideoFunctions) {
+   myApp.controller('VideoNavigationCtrl', function ($scope, $state, VideoFunctions) {
 
      $scope.skip = function(t) { 
        VideoFunctions.stop = -1;
@@ -96,6 +96,8 @@ define(function(require) {
        VideoFunctions.stop = -1;
        VideoFunctions.b = VideoFunctions.video.currentTime;
        console.log('b', VideoFunctions.a, VideoFunctions.b);
+       console.log($state);
+       // $state.reload();
      };
 
    });
