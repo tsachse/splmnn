@@ -1,7 +1,8 @@
 define(['text!/spielmann/media/tmpls/_show_page.html',
         'text!/spielmann/media/tmpls/_repeat_button.html',
-	'text!/spielmann/media/tmpls/_video_tag.html'],
-    function(show_page_tmpl,button_tmpl, video_tag_tmpl) {
+	'text!/spielmann/media/tmpls/_video_tag.html',
+	'text!/spielmann/media/tmpls/_button_group.html'],
+    function(show_page_tmpl,button_tmpl, video_tag_tmpl, button_group_tmpl) {
       return function(nga, sections) {
 	var media = nga.entity('media');
 
@@ -22,6 +23,9 @@ define(['text!/spielmann/media/tmpls/_show_page.html',
 	  nga.field('v', 'template')
 	    .label('')
 	    .template(video_tag_tmpl),
+	  nga.field('bg', 'template')
+	    .label('')
+	    .template(button_group_tmpl),
 	  nga.field('sections', 'referenced_list')
 	    .targetEntity(sections)
 	    .targetReferenceField('medium_id')
